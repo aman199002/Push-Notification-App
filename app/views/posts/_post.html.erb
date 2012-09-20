@@ -1,0 +1,7 @@
+<tr id='post_<%= post.id%>' class=<%= publish ? 'red-color':'blue-color' %>>
+  <td><%= link_to post.name, post_path(post) %></td>
+  <td><%= post.description %></td>
+  <td><%= link_to 'Show', post %></td>
+  <td><%= link_to 'Edit', edit_post_path(post) if post.user == current_user %></td>
+  <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if post.user == current_user %></td>
+</tr>

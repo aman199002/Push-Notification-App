@@ -3,5 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-  PrivatePub.subscribe "/posts", (data, channel) ->
-    alert data
+  PrivatePub.subscribe "/posts", (data, channel) ->    
+    $('table#posts tbody').append(data.html_content)
+    $('#post_'+data.id).fadeOut().fadeIn()

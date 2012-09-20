@@ -1,6 +1,6 @@
 <h1>Listing posts</h1>
 
-<table class='table'>
+<table class='table' id='posts'>
   <tr>    
     <th>Name</th>
     <th>Description</th>    
@@ -9,22 +9,12 @@
   </tr>
 
 <% @posts.each do |post| %>
-  <tr>    
-    <td><%= link_to post.name, post_path(post) %></td>
-    <td><%= post.description %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) if post.user == current_user %></td>
-    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if post.user == current_user %></td>
-  </tr>
+  <%= render :partial => "post", :locals => {:post => post, :publish => false} %>  
 <% end %>
 </table>
 
 <br />
 
 <%= link_to 'New Post', new_post_path %>
-<%#debugger%>
-<%#= subscribe_to "/posts" %>
 
-<script type=\"text/javascript\">
-PrivatePub.sign({\"server\":\"http://localhost:9292/faye\",\"timestamp\":1348107773876,\"channel\":\"/posts\",\"signature\":\"850bc1ffb9cd938cf6411ae44f59ee25438352ee\"});
-</script>
+<%= subscribe_to "/posts" %>
