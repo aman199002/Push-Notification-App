@@ -11,12 +11,14 @@ You must start Faye to publish posts to the specific channel.
 
 Steps to run the application after download.
 
-
+```
 $bundle install   # To install gems
-===
+```
 
+```
 $rails server     # To start Rails Server
-===
+```
 
+```
 $rackup private_pub.ru -s thin -E production    #To start Faye for subscribing and publishing to channels.
-===
+```
