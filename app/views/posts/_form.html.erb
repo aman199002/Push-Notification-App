@@ -1,0 +1,7 @@
+<%= simple_form_for(@post) do |f| %>    
+  <%= f.input :user_id, :as => :hidden %>  
+  <%= f.input :name %>  
+  <%= f.input :description %>
+  
+  <%= f.submit %>  
+<% end %>

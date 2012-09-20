@@ -1,0 +1,17 @@
+<%= form_for @user, :url => {:action => "create"} do |f| %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <p class="alert-error"><%= msg %></p>
+  <% end %>
+  <%= f.label 'Name' %>
+  <%= f.text_field :name %>
+  <%= f.label 'Username' %>
+  <%= f.text_field :login %>
+  <%= f.label 'Email' %>
+  <%= f.text_field :email %>
+  <%= f.label 'Password' %>
+  <%= f.password_field :password %>
+  <%= f.label 'Confirm' %>
+  <%= f.password_field :password_confirmation %>
+  <br/>
+  <%= f.submit :submit %>
+<% end %>
