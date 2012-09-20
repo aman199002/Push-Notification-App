@@ -22,3 +22,5 @@ $rails server     # To start Rails Server
 ```
 $rackup private_pub.ru -s thin -E production    #To start Faye for subscribing and publishing to channels.
 ```
+
+Note: You must start the thin server in production mode even if you are running application in development mode.
