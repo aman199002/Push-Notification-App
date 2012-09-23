@@ -30,4 +30,4 @@ group :development, :test do
   gem 'debugger'
 end  
 
-gem install activerecord-mysql-adapter, :group => :production
+gem 'activerecord-mysql-adapter', :group => :production
