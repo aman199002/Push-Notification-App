@@ -74,6 +74,8 @@ GEM
       yajl-ruby (>= 1.0.0)
     faye-websocket (0.4.6)
       eventmachine (>= 0.12.0)
+    foreman (0.59.0)
+      thor (>= 0.13.6)
     haml (3.1.7)
     heroku (2.31.0)
       heroku-api (~> 0.3.4)
@@ -186,6 +188,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   debugger
   execjs
+  foreman
   haml
   heroku
   hpricot
