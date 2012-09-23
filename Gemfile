@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'mysql2'
 gem 'authlogic'
 gem "rails3-generators"
 gem "twitter-bootstrap-rails"
@@ -27,7 +26,8 @@ end
 gem 'jquery-rails'
 
 group :development, :test do
-  gem 'debugger'
+  gem 'mysql2'	
+  gem 'debugger'  
 end  
 
 gem 'pg', :group => :production
