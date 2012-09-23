@@ -5,7 +5,7 @@ namespace :erb do
       files = `find . -iname *.erb`
       files.each_line do |file|
         file.strip!
-        {}`bundle exec html2haml #{file} | cat > #{file.gsub(/\.erb$/,".haml")}`        
+        `bundle exec html2haml #{file} | cat > #{file.gsub(/\.erb$/,".haml")}`        
         `rm #{file}`
       end
     end
