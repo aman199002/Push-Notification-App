@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        PrivatePub.publish_to("/posts", {html_content: render_to_string(:partial => "posts/post", :locals => {:post => @post, :publish => true}), id: @post.id})
+        PrivatePub.publish_to("/posts", {html_content: render_to_string(:partial => "posts/post", :locals => {:post => @post, :publish => true}), id: @post.id}) rescue nil
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
