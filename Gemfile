@@ -30,4 +30,4 @@ group :development, :test do
   gem 'debugger'
 end  
 
-gem 'activerecord-mysql-adapter', :group => :production
+gem 'activerecord-mysql-adapter-flags', :group => :production
