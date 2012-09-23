@@ -1,0 +1,6 @@
+<tr id='post_#{post.id}' class=#{publish ? 'red-color':'blue-color'}>
+%td= link_to post.name, post_path(post)
+%td= post.description
+%td= link_to 'Show', post
+%td= link_to 'Edit', edit_post_path(post) if !publish and post.user == current_user
+%td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } if !publish and post.user == current_user

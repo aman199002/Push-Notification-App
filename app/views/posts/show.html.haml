@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b User:
+  = @post.user.name
+%p
+  %b Name:
+  = @post.name
+%p
+  %b Description:
+  = @post.description
+= link_to 'Edit', edit_post_path(@post) if @post.user == current_user
+
+= link_to 'Back', posts_path
