@@ -9,8 +9,6 @@ gem 'simple_form'
 gem "private_pub"
 gem 'thin'
 gem 'foreman'
-
-#For html2haml
 gem 'hpricot'
 gem 'ruby_parser'
 
