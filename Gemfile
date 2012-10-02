@@ -11,6 +11,8 @@ gem 'thin'
 gem 'foreman'
 gem 'hpricot'
 gem 'ruby_parser'
+gem 'ruby-openid'
+gem 'rack-openid'
 
 group :assets do
   gem 'haml'	

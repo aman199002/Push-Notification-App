@@ -3,9 +3,10 @@ FirstApp::Application.routes.draw do
 
   resources :posts
 
-  #get "home/index"
+  
 
-  #get "user_sessions/new"
+  get "user_sessions/google_signin", :as => :google_signin
+  match "user_sessions/google_create", :as => :google_create
 
   resources :users do
     resources :posts  

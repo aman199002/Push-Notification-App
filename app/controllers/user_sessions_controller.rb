@@ -16,6 +16,35 @@ class UserSessionsController < ApplicationController
     end
   end
 
+  def google_signin
+    response.headers['WWW-Authenticate'] = Rack::OpenID.build_header(
+        :identifier => "https://www.google.com/accounts/o8/id",
+        :required => ["http://axschema.org/contact/email",
+                      "http://axschema.org/namePerson/first",
+                      "http://axschema.org/namePerson/last"],
+        :return_to => google_create_url,
+        :method => 'POST')
+    head 401
+  end  
+
+  def google_create
+    if openid = request.env[Rack::OpenID::RESPONSE]      
+      if openid.status == :success
+        ax = OpenID::AX::FetchResponse.from_success_response(openid)
+        user = User.where(:identifier_url => openid.display_identifier).first
+        user ||= User.create!(:identifier_url => openid.display_identifier,
+                              :email => ax.get_single('http://axschema.org/contact/email'),
+                              :first_name => ax.get_single('http://axschema.org/namePerson/first'),
+                              :last_name => ax.get_single('http://axschema.org/namePerson/last'),
+                              :password => openid.display_identifier.split('=').last,
+                              :password_confirmation => openid.display_identifier.split('=').last
+                              )
+        @user_session = UserSession.create(:email => user.email , :password => openid.display_identifier.split('=').last)
+      end    
+      redirect_to posts_path
+    end
+  end  
+
   def destroy
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
