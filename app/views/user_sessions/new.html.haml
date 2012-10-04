@@ -1,14 +1,16 @@
-= form_for @user_session, :url => {:action => "create"} do |f|
-  - @user_session.errors.full_messages.each do |msg|
-    %p.alert-error= msg
-  = f.label 'Email'
-  = f.text_field :email
-  = f.label 'Password'
-  = f.password_field :password
-  %br/
-  = f.submit :submit
-
-%br/
-%br/
-%br/
-= link_to "SignIn with Google", google_signin_path, :class => 'btn'
+.span12  
+  = form_for @user_session, :url => {:action => "create"} do |f|
+    - @user_session.errors.full_messages.each do |msg|
+      %p.alert-error= msg
+    = f.label 'Email'
+    = f.text_field :email
+    = f.label 'Password'
+    = f.password_field :password
+    %br/
+    = f.submit :submit
+  %br
+  %br
+  .span2
+    = link_to image_tag("google_logo.jpg", :height => '70px', :width => '70px'), google_signin_path
+  .span2
+    = link_to image_tag("facebook.jpg", :height => '80px', :width => '80px'),'/auth/facebook'

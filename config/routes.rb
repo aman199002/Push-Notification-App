@@ -4,8 +4,10 @@ FirstApp::Application.routes.draw do
   resources :posts
 
   
-
-  get "user_sessions/google_signin", :as => :google_signin
+  match 'auth/:provider/callback', to: 'user_sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'user_sessions#destroy', as: 'signout'
+  match "user_sessions/google_signin", :as => :google_signin
   match "user_sessions/google_create", :as => :google_create
 
   resources :users do

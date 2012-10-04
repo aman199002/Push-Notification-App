@@ -6,8 +6,13 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new
   end
 
-  def create
-    @user_session = UserSession.new(params[:user_session])
+  def create    
+    if params[:provider].present? && params[:provider]=="facebook"
+      user = User.from_omniauth(env["omniauth.auth"])
+      @user_session = UserSession.new(:email => user.email, :password => user.password)
+    else  
+      @user_session = UserSession.new(params[:user_session])
+    end  
     if @user_session.save
       flash[:notice] = "Login successful!"
       redirect_to posts_path
@@ -28,21 +33,14 @@ class UserSessionsController < ApplicationController
   end  
 
   def google_create
-    if openid = request.env[Rack::OpenID::RESPONSE]      
-      if openid.status == :success
-        ax = OpenID::AX::FetchResponse.from_success_response(openid)
-        user = User.where(:identifier_url => openid.display_identifier).first
-        user ||= User.create!(:identifier_url => openid.display_identifier,
-                              :email => ax.get_single('http://axschema.org/contact/email'),
-                              :first_name => ax.get_single('http://axschema.org/namePerson/first'),
-                              :last_name => ax.get_single('http://axschema.org/namePerson/last'),
-                              :password => openid.display_identifier.split('=').last,
-                              :password_confirmation => openid.display_identifier.split('=').last
-                              )
-        @user_session = UserSession.create(:email => user.email , :password => openid.display_identifier.split('=').last)
-      end    
-      redirect_to posts_path
-    end
+    if (openid = request.env[Rack::OpenID::RESPONSE]) && (openid.status == :success)      
+      if user = User.from_google(openid)         
+        @user_session = UserSession.create(:email => user.email , :password => openid.display_identifier.split('=').last)        
+        redirect_to posts_path
+      end  
+    else
+      redirect_to :controller => 'user_sessions',:action => 'new',:notice => "Authentication Error"        
+    end    
   end  
 
   def destroy
