@@ -20,7 +20,17 @@ $rails server     # To start Rails Server
 ```
 
 ```
-$rackup private_pub.ru -s thin -E production    #To start Faye for subscribing and publishing to channels.
+$bundle exec rackup private_pub.ru -s thin -E production    #To start Faye for subscribing and publishing to channels.
+```
+
+To use Private Pub in production server, please make folwwoing changes
+In private_pub.yml file inside config folder, please specify url of the application like
+server: "http://example.com/faye"
+
+and start Faye in production mode with this command
+
+```
+$RAILS_ENV=production bundle exec rackup private_pub.ru -s thin -E production    
 ```
 
 Note: You must start the thin server in production mode even if you are running application in development mode.
